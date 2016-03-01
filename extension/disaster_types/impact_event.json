@@ -1,0 +1,1 @@
+[{"query_string": "2007 Carancas impact event", "start_date": "01/01/2007", "end_date": "12/31/2007", "year": "2007"}, {"query_string": "TC3", "start_date": "01/01/2008", "end_date": "12/31/2008", "year": "2008"}, {"query_string": "Sulawesi superbolide", "start_date": "01/01/2009", "end_date": "12/31/2009", "year": "2009"}]
