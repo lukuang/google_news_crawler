@@ -8,6 +8,23 @@ if (!fs.existsSync(data_dir)){
     fs.mkdirSync(data_dir);
 }
 
+function makeEachDir(element, index, array) {
+  fs.mkdirSync(element);
+}
+
+fs.mkdirParent = function(dirPath) {
+
+  var dir_list = [];
+
+  while (!fs.existsSync(dirPath)){
+    dir_list.unshift(dirPath);
+    console.log("push " + dirPath)
+    dirPath = path.dirname(dirPath);
+  }
+  dir_list.forEach(makeEachDir);
+};
+
+
 http.createServer(function (req, res) {
   // set up some routes
   switch(req.url) {
@@ -29,8 +46,13 @@ http.createServer(function (req, res) {
     
         req.on('end', function() {
             var post = qs.parse(body);
-            file_name = post['f']
-            file_path = path.join(data_dir,file_name);
+            file_name = post['f'];
+            dir_name = post['dir'];
+            dir_path = path.join(data_dir, dir_name)
+            if (!fs.existsSync(dir_path)){
+              fs.mkdirParent(dir_path);
+            }
+            file_path = path.join(dir_path,file_name);
             content = post['d']
             //console.log(body)
             fs.writeFile(file_path, content, function(err) {
